@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { logout } from '@/lib/actions';
+import { logout } from '@/server/actions';
 
 export function Logout() {
     return (

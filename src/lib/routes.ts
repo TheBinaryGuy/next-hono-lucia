@@ -1,3 +1,5 @@
+// https://www.flightcontrol.dev/blog/fix-nextjs-routing-to-have-full-type-safety
+
 import {
     ReadonlyURLSearchParams,
     useParams as useNextParams,

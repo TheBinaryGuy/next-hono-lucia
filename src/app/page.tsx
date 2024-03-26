@@ -1,7 +1,7 @@
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
-import { logout } from '@/lib/actions';
 import { getUser } from '@/lib/utils.server';
+import { logout } from '@/server/actions';
 
 export default async function Page() {
     const user = await getUser();

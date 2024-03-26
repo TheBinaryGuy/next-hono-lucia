@@ -67,7 +67,7 @@ function getSmtpTransporter() {
     );
 }
 
-// TODO: This could be DI'd into the function or have a factory function that returns the appropriate implementation
+// TODO: This could be injected into the function or have a factory function that returns the appropriate implementation
 export async function sendVerificationCode(emailAddress: string, code: string) {
     if (serverEnvs.EMAIL_PROVIDER === 'console') {
         console.info(`Email From: ${serverEnvs.EMAIL_FROM} | Email To: ${emailAddress}`);
