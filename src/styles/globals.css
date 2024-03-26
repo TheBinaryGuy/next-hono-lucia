@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 220 44% 100%;
+        --foreground: 220 67% 0%;
+        --muted: 220 39% 92%;
+        --muted-foreground: 220 13% 27%;
+        --popover: 220 44% 100%;
+        --popover-foreground: 220 67% 0%;
+        --card: 0 0% 99%;
+        --card-foreground: 0 0% 0%;
+        --border: 220 2% 93%;
+        --input: 220 2% 93%;
+        --primary: 220 66% 58%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 220 7% 91%;
+        --secondary-foreground: 220 7% 31%;
+        --accent: 220 13% 82%;
+        --accent-foreground: 220 13% 22%;
+        --destructive: 0 86% 45%;
+        --destructive-foreground: 0 0% 100%;
+        --ring: 220 66% 58%;
+        --radius: 0.5rem;
+    }
+
+    html.dark,
+    html[data-theme='dark'] {
+        --background: 220 43% 4%;
+        --foreground: 220 16% 99%;
+        --muted: 220 39% 8%;
+        --muted-foreground: 220 13% 73%;
+        --popover: 220 43% 4%;
+        --popover-foreground: 220 16% 99%;
+        --card: 220 43% 5%;
+        --card-foreground: 0 0% 100%;
+        --border: 220 2% 13%;
+        --input: 220 2% 13%;
+        --primary: 220 66% 58%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 220 7% 9%;
+        --secondary-foreground: 220 7% 69%;
+        --accent: 220 13% 16%;
+        --accent-foreground: 220 13% 76%;
+        --destructive: 0 86% 49%;
+        --destructive-foreground: 0 0% 100%;
+        --ring: 220 66% 58%;
+    }
+
+    html.dark .shiki,
+    html.dark .shiki span {
+        color: var(--shiki-dark) !important;
+        background-color: var(--shiki-dark-bg) !important;
+        font-style: var(--shiki-dark-font-style) !important;
+        font-weight: var(--shiki-dark-font-weight) !important;
+        text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+
+    * {
+        border-color: hsl(var(--border));
+    }
+
+    html {
+        -webkit-tap-highlight-color: transparent;
+        scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        font-family: theme('fontFamily.sans');
+        font-feature-settings: 'ss01';
+
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "never",
+        "source.sortImports": "never"
+    },
+    "typescript.preferences.autoImportFileExcludePatterns": [
+        "next/router.d.ts",
+        "next/dist/client/router.d.ts",
+        "next/dist/server/api-utils/index.d.ts"
+    ]
+}
