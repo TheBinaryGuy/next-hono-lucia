@@ -45,19 +45,10 @@ export function VerificationForm({ email }: { email: string }) {
     const router = useRouter();
     const { mutate, isPending } = useMutation<unknown, Error, Verify>({
         mutationKey: ['user-verification'],
-        mutationFn: async ({ confirmationCode, email, password }) => {
-            const resp = await client.api.auth.register.verify.$post({
-                json: {
-                    email,
-                    confirmationCode,
-                    password,
-                },
-            });
-
-            if (!resp.ok) {
-                throw new Error('Failed to verify user');
-            }
-        },
+        mutationFn: json =>
+            client.api.auth.register.verify.$post({
+                json,
+            }),
         onSuccess: () => {
             router.push(Routes.home());
         },

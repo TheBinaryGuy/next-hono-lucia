@@ -28,15 +28,10 @@ export function LoginForm() {
     const { push } = useRouter();
     const { mutate, isPending } = useMutation<unknown, Error, Login, unknown>({
         mutationKey: ['login'],
-        mutationFn: async ({ email, password }) => {
-            const response = await client.api.auth.login.$post({
-                json: { email, password },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to login');
-            }
-        },
+        mutationFn: json =>
+            client.api.auth.login.$post({
+                json,
+            }),
         onSuccess: async () => {
             push(Routes.home());
         },

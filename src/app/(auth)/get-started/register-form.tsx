@@ -30,13 +30,9 @@ export function RegisterForm() {
     const { mutate, isPending } = useMutation<unknown, Error, SendRegistrationCode, unknown>({
         mutationKey: ['register'],
         mutationFn: async input => {
-            const response = await client.api.auth.register['send-registration-code'].$post({
+            await client.api.auth.register['send-registration-code'].$post({
                 json: input,
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to send verification code');
-            }
 
             return { email: input.email };
         },
