@@ -36,15 +36,16 @@ pnpm dev
 
 ## Environment Variables
 
-| Name               | Description                                                                   |
-| ------------------ | ----------------------------------------------------------------------------- |
-| NEXT_PUBLIC_DOMAIN | The domain of the website, defaults to localhost:3000                         |
-| DATABASE_URL       | Postgres connection string, defaults to postgres://postgres@localhost/example |
-| EMAIL_FROM         | Email from address, defaults to "Example <hey@example.com>"                   |
-| EMAIL_PROVIDER     | Email provider, console, smtp, resend, default is console                     |
-| RESEND_API_KEY     | If email provider is resend, get your key from resend.com                     |
-| SMTP_HOST          | If email provider is smtp                                                     |
-| SMTP_PORT          | If email provider is smtp, defaults to 587                                    |
-| SMTP_USERNAME      | If email provider is smtp                                                     |
-| SMTP_PASSWORD      | If email provider is smtp                                                     |
-| SMTP_SECURE        | If email provider is smtp, true or 1, defaults to true                        |
+| Name               | Description                                                                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| NEXT_PUBLIC_DOMAIN | The domain of the website, defaults to localhost:3000                                                                                      |
+| DATABASE_URL       | Postgres connection string, defaults to postgres://postgres@localhost/example                                                              |
+| EMAIL_FROM         | Email from address, defaults to "Example <hey@example.com>"                                                                                |
+| EMAIL_PROVIDER     | Email provider, console, smtp, resend, default is console                                                                                  |
+| RESEND_API_KEY     | If email provider is resend, get your key from resend.com                                                                                  |
+| SMTP_HOST          | If email provider is smtp                                                                                                                  |
+| SMTP_PORT          | If email provider is smtp, defaults to 587                                                                                                 |
+| SMTP_USERNAME      | If email provider is smtp                                                                                                                  |
+| SMTP_PASSWORD      | If email provider is smtp                                                                                                                  |
+| SMTP_SECURE        | If email provider is smtp, true or 1, defaults to true                                                                                     |
+| STANDALONE         | If you want standalone output, set this to 1, if you are using the provided `Dockerfile` then this is already taken care of, defaults to 0 |

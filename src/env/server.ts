@@ -20,6 +20,8 @@ export const serverEnvs = createEnv({
 
         // always required regardless of email provider
         EMAIL_FROM: z.string(),
+
+        STANDALONE: z.coerce.number().default(0),
     },
     experimental__runtimeEnv: process.env,
     emptyStringAsUndefined: true,
