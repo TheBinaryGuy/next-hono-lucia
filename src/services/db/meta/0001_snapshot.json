@@ -128,8 +128,8 @@
           "notNull": false,
           "default": false
         },
-        "hased_password": {
-          "name": "hased_password",
+        "hashed_password": {
+          "name": "hashed_password",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true,
@@ -157,6 +157,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "b25b0d93-6e4d-4b34-adea-87a0c7171975",
-  "prevId": "00000000-0000-0000-0000-000000000000"
+  "id": "71fbfbc7-9bee-4296-bdf1-78ac5d9f4892",
+  "prevId": "b25b0d93-6e4d-4b34-adea-87a0c7171975"
 }
