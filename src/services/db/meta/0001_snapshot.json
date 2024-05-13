@@ -1,17 +1,8 @@
 {
-<<<<<<< HEAD
   "version": "6",
   "dialect": "postgresql",
   "tables": {
     "public.email_verification_codes": {
-=======
-  "id": "71fbfbc7-9bee-4296-bdf1-78ac5d9f4892",
-  "prevId": "b25b0d93-6e4d-4b34-adea-87a0c7171975",
-  "version": "5",
-  "dialect": "pg",
-  "tables": {
-    "email_verification_codes": {
->>>>>>> cb54e5c9b16205644f47f6d8add68990bfb44440
       "name": "email_verification_codes",
       "schema": "",
       "columns": {
@@ -45,7 +36,6 @@
         "email_verification_codes_user_id_users_id_fk": {
           "name": "email_verification_codes_user_id_users_id_fk",
           "tableFrom": "email_verification_codes",
-<<<<<<< HEAD
           "columnsFrom": [
             "user_id"
           ],
@@ -55,27 +45,12 @@
           ],
           "onUpdate": "no action",
           "onDelete": "no action"
-=======
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
->>>>>>> cb54e5c9b16205644f47f6d8add68990bfb44440
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-<<<<<<< HEAD
     "public.sessions": {
-=======
-    "sessions": {
->>>>>>> cb54e5c9b16205644f47f6d8add68990bfb44440
       "name": "sessions",
       "schema": "",
       "columns": {
@@ -103,7 +78,6 @@
         "sessions_user_id_users_id_fk": {
           "name": "sessions_user_id_users_id_fk",
           "tableFrom": "sessions",
-<<<<<<< HEAD
           "columnsFrom": [
             "user_id"
           ],
@@ -113,27 +87,12 @@
           ],
           "onUpdate": "no action",
           "onDelete": "no action"
-=======
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
->>>>>>> cb54e5c9b16205644f47f6d8add68990bfb44440
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-<<<<<<< HEAD
     "public.users": {
-=======
-    "users": {
->>>>>>> cb54e5c9b16205644f47f6d8add68990bfb44440
       "name": "users",
       "schema": "",
       "columns": {
@@ -194,17 +153,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-<<<<<<< HEAD
     "schemas": {},
     "tables": {},
     "columns": {}
   },
   "id": "71fbfbc7-9bee-4296-bdf1-78ac5d9f4892",
   "prevId": "b25b0d93-6e4d-4b34-adea-87a0c7171975"
-=======
-    "columns": {},
-    "schemas": {},
-    "tables": {}
-  }
->>>>>>> cb54e5c9b16205644f47f6d8add68990bfb44440
 }
