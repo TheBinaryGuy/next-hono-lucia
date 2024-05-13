@@ -23,7 +23,7 @@ export const users = pgTable(
         }).notNull(),
         emailVerified: boolean('email_verified').default(false),
         agreedToTerms: boolean('agreed_to_terms').default(false),
-        hashedPassword: varchar('hased_password').default('').notNull(),
+        hashedPassword: varchar('hashed_password').default('').notNull(),
     },
     table => {
         return {
