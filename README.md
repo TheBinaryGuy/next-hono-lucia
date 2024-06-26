@@ -28,7 +28,7 @@ pnpm create next-app your-app-name -e https://github.com/TheBinaryGuy/next-hono-
 
 ```bash
 cd your-app-name
-pnpm db:push
+pnpm db:migrate
 pnpm dev
 ```
 
