@@ -1,18 +1,21 @@
+import { fileURLToPath } from 'node:url';
 import createJiti from 'jiti';
 
-const jiti = createJiti(new URL(import.meta.url).pathname);
+const jiti = createJiti(fileURLToPath(import.meta.url));
 
-const { serverEnvs } = jiti('./src/env/server');
-jiti('./src/env/client');
+const serverEnvPath = './src/env/server';
+const clientEnvPath = './src/env/client';
+
+const { serverEnvs } = jiti(serverEnvPath);
+jiti(clientEnvPath);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: serverEnvs.STANDALONE === 1 ? 'standalone' : undefined,
     swcMinify: true,
     reactStrictMode: true,
-    webpack: config => {
-        config.externals.push('@node-rs/argon2', '@node-rs/bcrypt');
-        return config;
+    experimental: {
+        serverComponentsExternalPackages: ['@node-rs/argon2'],
     },
 };
 

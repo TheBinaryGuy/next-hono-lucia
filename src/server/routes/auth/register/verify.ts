@@ -3,8 +3,8 @@ import { eq } from 'drizzle-orm';
 import { setCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
 import { isWithinExpirationDate } from 'oslo';
-import { Argon2id } from 'oslo/password';
 
+import { hashPassword } from '@/lib/utils.server';
 import { verifySchema } from '@/schemas/auth';
 import { ContextVariables } from '@/server/types';
 import { lucia } from '@/services/auth';
@@ -72,7 +72,7 @@ export const verify = new OpenAPIHono<{
             throw error;
         }
 
-        const hashedPassword = await new Argon2id().hash(password);
+        const hashedPassword = await hashPassword(password);
         await db.transaction(async ctx => {
             await ctx
                 .update(users)

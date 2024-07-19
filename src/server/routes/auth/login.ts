@@ -2,8 +2,8 @@ import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { and, eq } from 'drizzle-orm';
 import { setCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
-import { Argon2id } from 'oslo/password';
 
+import { verifyHash } from '@/lib/utils.server';
 import { loginSchema } from '@/schemas/auth';
 import { ContextVariables } from '@/server/types';
 import { lucia } from '@/services/auth';
@@ -48,7 +48,7 @@ export const login = new OpenAPIHono<{ Variables: ContextVariables }>().openapi(
             });
         }
 
-        const validPassword = await new Argon2id().verify(existingUser.hashedPassword, password);
+        const validPassword = await verifyHash(existingUser.hashedPassword, password);
         if (!validPassword) {
             throw new HTTPException(400, {
                 message: 'Authentication failed.',
