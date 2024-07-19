@@ -1,8 +1,10 @@
+import { revalidatePath } from 'next/cache';
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { and, eq } from 'drizzle-orm';
 import { setCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
 
+import { Routes } from '@/lib/routes';
 import { verifyHash } from '@/lib/utils.server';
 import { loginSchema } from '@/schemas/auth';
 import { ContextVariables } from '@/server/types';
@@ -61,6 +63,8 @@ export const login = new OpenAPIHono<{ Variables: ContextVariables }>().openapi(
             ...sessionCookie.attributes,
             sameSite: 'Strict',
         });
+
+        revalidatePath(Routes.home());
 
         return c.json({});
     }

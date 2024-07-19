@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -25,7 +24,6 @@ import { Login, loginSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
 
 export function LoginForm() {
-    const { push } = useRouter();
     const { mutate, isPending } = useMutation<unknown, Error, Login, unknown>({
         mutationKey: ['login'],
         mutationFn: json =>
@@ -33,7 +31,7 @@ export function LoginForm() {
                 json,
             }),
         onSuccess: async () => {
-            push(Routes.home());
+            window.location.assign(Routes.home());
         },
         onError: () => {
             toast.error('Login failed.');
