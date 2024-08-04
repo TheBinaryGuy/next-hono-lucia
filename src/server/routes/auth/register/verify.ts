@@ -1,14 +1,13 @@
+import { hashPassword } from '@/lib/utils.server';
+import { verifySchema } from '@/schemas/auth';
+import type { ContextVariables } from '@/server/types';
+import { lucia } from '@/services/auth';
+import { emailVerificationCodes, users } from '@/services/db/schema';
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { eq } from 'drizzle-orm';
 import { setCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
 import { isWithinExpirationDate } from 'oslo';
-
-import { hashPassword } from '@/lib/utils.server';
-import { verifySchema } from '@/schemas/auth';
-import { ContextVariables } from '@/server/types';
-import { lucia } from '@/services/auth';
-import { emailVerificationCodes, users } from '@/services/db/schema';
 
 export const verify = new OpenAPIHono<{
     Variables: ContextVariables;

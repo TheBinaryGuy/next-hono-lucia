@@ -1,12 +1,5 @@
 'use client';
 
-import { ErrorMessage } from '@hookform/error-message';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-
 import { Button } from '@/components/ui/button';
 import {
     Form,
@@ -20,8 +13,14 @@ import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/password-input';
 import { Routes } from '@/lib/routes';
 import { cn } from '@/lib/utils';
-import { Login, loginSchema } from '@/schemas/auth';
+import { type Login, loginSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
+import { ErrorMessage } from '@hookform/error-message';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export function LoginForm() {
     const { mutate, isPending } = useMutation<unknown, Error, Login, unknown>({

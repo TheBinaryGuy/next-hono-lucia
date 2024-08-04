@@ -1,6 +1,3 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-
 import { LoginForm } from '@/app/(auth)/login/login-form';
 import {
     Card,
@@ -11,6 +8,8 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Routes } from '@/lib/routes';
+import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Login',

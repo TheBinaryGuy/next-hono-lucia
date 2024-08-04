@@ -1,11 +1,10 @@
 'use server';
 
+import { Routes } from '@/lib/routes';
+import { lucia } from '@/services/auth';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-
-import { Routes } from '@/lib/routes';
-import { lucia } from '@/services/auth';
 
 export async function logout() {
     const sessionId = cookies().get(lucia.sessionCookieName)?.value;

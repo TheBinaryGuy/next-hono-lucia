@@ -1,12 +1,11 @@
+import { generateEmailVerificationCode, sendVerificationCode } from '@/lib/utils.server';
+import { sendRegistrationCodeSchema } from '@/schemas/auth';
+import type { ContextVariables } from '@/server/types';
+import { users } from '@/services/db/schema';
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { generateId } from 'lucia';
-
-import { generateEmailVerificationCode, sendVerificationCode } from '@/lib/utils.server';
-import { sendRegistrationCodeSchema } from '@/schemas/auth';
-import { ContextVariables } from '@/server/types';
-import { users } from '@/services/db/schema';
 
 export const sendRegistrationCode = new OpenAPIHono<{
     Variables: ContextVariables;

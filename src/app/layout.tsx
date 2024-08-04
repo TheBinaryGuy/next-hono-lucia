@@ -1,9 +1,8 @@
-import { ReactNode } from 'react';
-import { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
-
 import { Providers } from '@/components/providers';
 import { serverEnvs } from '@/env/server';
+import type { Metadata, Viewport } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
+import type { ReactNode } from 'react';
 
 import '@/styles/globals.css';
 

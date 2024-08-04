@@ -59,7 +59,7 @@ export const sessions = pgTable('sessions', {
         .references(() => users.id),
 });
 
-export const usersRelations = relations(users, ({ many, one }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
     emailVerificationCodes: many(emailVerificationCodes),
     sessions: many(sessions),
 }));

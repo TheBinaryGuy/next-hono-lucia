@@ -1,9 +1,8 @@
-import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
-
 import { VerificationForm } from '@/app/(auth)/get-started/verify/verification-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Routes } from '@/lib/routes';
+import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
     title: 'Verify Your Email',

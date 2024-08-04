@@ -1,13 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { ErrorMessage } from '@hookform/error-message';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-
 import { Button } from '@/components/ui/button';
 import {
     Form,
@@ -28,8 +20,15 @@ import {
 import { PasswordInput } from '@/components/ui/password-input';
 import { Routes } from '@/lib/routes';
 import { cn } from '@/lib/utils';
-import { Verify, verifySchema } from '@/schemas/auth';
+import { type Verify, verifySchema } from '@/schemas/auth';
 import { client } from '@/server/client';
+import { ErrorMessage } from '@hookform/error-message';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export function VerificationForm({ email }: { email: string }) {
     const form = useForm<Verify>({

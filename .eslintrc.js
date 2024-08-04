@@ -1,11 +1,13 @@
 module.exports = {
     root: true,
-    plugins: ['unused-imports', 'tailwindcss'],
+    parser: '@typescript-eslint/parser',
+    plugins: ['tailwindcss', '@typescript-eslint'],
     extends: [
         'next/core-web-vitals',
         'prettier',
         'plugin:tailwindcss/recommended',
         'plugin:@tanstack/eslint-plugin-query/recommended',
+        'plugin:@typescript-eslint/recommended',
     ],
     settings: {
         tailwindcss: {
@@ -18,7 +20,18 @@ module.exports = {
         'react/require-default-props': 'off',
         'react/jsx-props-no-spreading': 'off',
         semi: ['error', 'always'],
-        'unused-imports/no-unused-imports': 'error',
+        '@typescript-eslint/no-unused-vars': [
+            'warn',
+            {
+                args: 'all',
+                argsIgnorePattern: '^_',
+                caughtErrors: 'all',
+                caughtErrorsIgnorePattern: '^_',
+                destructuredArrayIgnorePattern: '^_',
+                varsIgnorePattern: '^_',
+                ignoreRestSiblings: true,
+            },
+        ],
         'jsx-a11y/label-has-associated-control': [
             2,
             {

@@ -1,5 +1,5 @@
-import { fileURLToPath } from 'node:url';
 import createJiti from 'jiti';
+import { fileURLToPath } from 'node:url';
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
@@ -16,6 +16,17 @@ const nextConfig = {
     reactStrictMode: true,
     experimental: {
         serverComponentsExternalPackages: ['@node-rs/argon2'],
+    },
+    webpack: config => {
+        config.module.rules.push({
+            test: /\.m?js$/,
+            type: 'javascript/auto',
+            resolve: {
+                fullySpecified: false,
+            },
+        });
+
+        return config;
     },
 };
 

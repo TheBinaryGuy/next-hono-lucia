@@ -1,19 +1,16 @@
-import {
-    Body,
-    Container,
-    Head,
-    Heading,
-    Html,
-    Preview,
-    Section,
-    Text,
-} from '@react-email/components';
+import { Body, Container, Head, Heading, Html, Preview, Section, Text } from 'jsx-email';
 
 interface ConfirmationCodeProps {
     validationCode: string;
 }
 
-export const ConfirmationCode = ({ validationCode }: ConfirmationCodeProps) => (
+export const PreviewProps = {
+    validationCode: '424-242',
+} as ConfirmationCodeProps;
+
+export const TemplateName = 'Airbnb Review';
+
+export const Template = ({ validationCode }: ConfirmationCodeProps) => (
     <Html>
         <Head />
         <Preview>Your confirmation code</Preview>
@@ -32,12 +29,6 @@ export const ConfirmationCode = ({ validationCode }: ConfirmationCodeProps) => (
         </Body>
     </Html>
 );
-
-ConfirmationCode.PreviewProps = {
-    validationCode: '424-242',
-} as ConfirmationCodeProps;
-
-export default ConfirmationCode;
 
 const main: React.CSSProperties = {
     backgroundColor: '#ffffff',

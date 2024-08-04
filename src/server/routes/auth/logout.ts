@@ -1,9 +1,8 @@
+import { Routes } from '@/lib/routes';
+import type { ContextVariables } from '@/server/types';
+import { lucia } from '@/services/auth';
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { getCookie, setCookie } from 'hono/cookie';
-
-import { Routes } from '@/lib/routes';
-import { ContextVariables } from '@/server/types';
-import { lucia } from '@/services/auth';
 
 export const logout = new OpenAPIHono<{ Variables: ContextVariables }>().openapi(
     createRoute({

@@ -17,6 +17,7 @@
         "jsx": "preserve",
         "incremental": true,
         "target": "esnext",
+        "verbatimModuleSyntax": true,
         "plugins": [
             {
                 "name": "next"
@@ -34,7 +35,8 @@
         "**/*.ts",
         "**/*.tsx",
         "**/*.mdx",
-        ".next/types/**/*.ts"
+        ".next/types/**/*.ts",
+        "next.config.mjs"
     ],
     "exclude": ["node_modules"]
 }

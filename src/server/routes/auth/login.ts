@@ -1,15 +1,14 @@
-import { revalidatePath } from 'next/cache';
+import { Routes } from '@/lib/routes';
+import { verifyHash } from '@/lib/utils.server';
+import { loginSchema } from '@/schemas/auth';
+import type { ContextVariables } from '@/server/types';
+import { lucia } from '@/services/auth';
+import { users } from '@/services/db/schema';
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
 import { and, eq } from 'drizzle-orm';
 import { setCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
-
-import { Routes } from '@/lib/routes';
-import { verifyHash } from '@/lib/utils.server';
-import { loginSchema } from '@/schemas/auth';
-import { ContextVariables } from '@/server/types';
-import { lucia } from '@/services/auth';
-import { users } from '@/services/db/schema';
+import { revalidatePath } from 'next/cache';
 
 export const login = new OpenAPIHono<{ Variables: ContextVariables }>().openapi(
     createRoute({

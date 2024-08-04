@@ -1,23 +1,22 @@
 import 'server-only';
 
-import { cache } from 'react';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { hash, verify } from '@node-rs/argon2';
-import { render } from '@react-email/render';
-import { eq } from 'drizzle-orm';
-import { createTransport } from 'nodemailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import { createDate, isWithinExpirationDate, TimeSpan } from 'oslo';
-import { alphabet, generateRandomString } from 'oslo/crypto';
-import { Resend } from 'resend';
-
-import ConfirmationCode from '@/emails/confirmation-code';
+import { Template as ConfirmationCode } from '@/emails/confirmation-code';
 import { serverEnvs } from '@/env/server';
 import { Routes } from '@/lib/routes';
 import { lucia } from '@/services/auth';
 import { db } from '@/services/db';
 import { emailVerificationCodes } from '@/services/db/schema';
+import { hash, verify } from '@node-rs/argon2';
+import { eq } from 'drizzle-orm';
+import { render } from 'jsx-email';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createTransport } from 'nodemailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import { createDate, isWithinExpirationDate, TimeSpan } from 'oslo';
+import { alphabet, generateRandomString } from 'oslo/crypto';
+import { cache } from 'react';
+import { Resend } from 'resend';
 
 export const getUser = cache(async () => {
     const sessionId = cookies().get(lucia.sessionCookieName)?.value;
@@ -37,7 +36,7 @@ export async function ensureAuthenticated() {
 }
 
 function getSmtpTransporter() {
-    let requiresAuth =
+    const requiresAuth =
         typeof serverEnvs.SMTP_USERNAME !== 'undefined' &&
         typeof serverEnvs.SMTP_PASSWORD !== 'undefined';
 
@@ -65,13 +64,15 @@ export async function sendVerificationCode(emailAddress: string, code: string) {
     }
 
     try {
+        const html = await render(ConfirmationCode({ validationCode: code }));
+
         if (serverEnvs.EMAIL_PROVIDER === 'resend') {
             const resend = new Resend(serverEnvs.RESEND_API_KEY);
             const { error } = await resend.emails.send({
                 from: serverEnvs.EMAIL_FROM,
                 to: emailAddress,
                 subject: `Your confirmation code: ${code}`,
-                react: ConfirmationCode({ validationCode: code }),
+                html,
                 text: `Your confirmation code: ${code}`,
             });
 
@@ -79,7 +80,6 @@ export async function sendVerificationCode(emailAddress: string, code: string) {
         }
 
         const transporter = getSmtpTransporter();
-        const html = render(ConfirmationCode({ validationCode: code }));
         await transporter.sendMail({
             from: serverEnvs.EMAIL_FROM,
             to: emailAddress,

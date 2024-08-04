@@ -1,13 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -22,8 +14,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Routes } from '@/lib/routes';
 import { cn } from '@/lib/utils';
-import { SendRegistrationCode, sendRegistrationCodeSchema } from '@/schemas/auth';
+import { type SendRegistrationCode, sendRegistrationCodeSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export function RegisterForm() {
     const { push } = useRouter();

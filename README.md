@@ -13,7 +13,7 @@ Uses:
 -   [Drizzle](https://orm.drizzle.team/) as the ORM
 -   [Postgres](https://www.postgresql.org/) as the database
 -   [Lucia](https://lucia-auth.com/) and [Oslo](https://oslo.js.org/) for auth
--   [React Email](https://react.email/) for the email templates
+-   [JSX Email](https://jsx.email/) for the email templates
 
 ## Getting Started (Development Environment)
 

@@ -1,6 +1,5 @@
+import type { ContextVariables } from '@/server/types';
 import { createRoute, OpenAPIHono, z } from '@hono/zod-openapi';
-
-import { ContextVariables } from '@/server/types';
 
 export const secret = new OpenAPIHono<{ Variables: ContextVariables }>().openapi(
     createRoute({

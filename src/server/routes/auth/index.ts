@@ -3,7 +3,7 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { login } from '@/server/routes/auth/login';
 import { logout } from '@/server/routes/auth/logout';
 import { registerApp } from '@/server/routes/auth/register';
-import { ContextVariables } from '@/server/types';
+import type { ContextVariables } from '@/server/types';
 
 export const authApp = new OpenAPIHono<{ Variables: ContextVariables }>()
     .route('/', registerApp)

@@ -4,7 +4,7 @@ import { getCookie, setCookie } from 'hono/cookie';
 
 import { authApp } from '@/server/routes/auth';
 import { secretApp } from '@/server/routes/secret';
-import { ContextVariables } from '@/server/types';
+import type { ContextVariables } from '@/server/types';
 import { lucia } from '@/services/auth';
 import { db } from '@/services/db';
 
