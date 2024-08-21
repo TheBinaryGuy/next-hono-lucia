@@ -1,5 +1,5 @@
 import { ClientUser } from '@/app/client-user';
-import { AuthProvider } from '@/components/auth';
+import { AuthProvider } from '@/components/auth-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Routes } from '@/lib/routes';
