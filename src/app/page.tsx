@@ -5,9 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Routes } from '@/lib/routes';
 import { getUser } from '@/lib/utils.server';
 import { logout } from '@/server/actions';
+import { headers } from 'next/headers';
 import Link from 'next/link';
 
 export default async function Page() {
+    // to make sure the page is dynamic, might not need to do this with Next.js v15 soon
+    headers();
     const user = await getUser();
     if (!user) {
         return (
