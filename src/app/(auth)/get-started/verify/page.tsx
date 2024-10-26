@@ -9,11 +9,13 @@ export const metadata: Metadata = {
     description: 'Almost there!',
 };
 
-export default function VerifyPage({
-    searchParams: { email },
-}: {
-    searchParams: { email: string | string[] | undefined };
+export default async function VerifyPage(props: {
+    searchParams: Promise<{ email: string | string[] | undefined }>;
 }) {
+    const searchParams = await props.searchParams;
+
+    const { email } = searchParams;
+
     if (!email || Array.isArray(email)) {
         return redirect(Routes.getStarted());
     }

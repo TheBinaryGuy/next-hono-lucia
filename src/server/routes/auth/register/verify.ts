@@ -91,6 +91,6 @@ export const verify = new OpenAPIHono<{
             sameSite: 'Strict',
         });
 
-        return c.json({});
+        return c.body(null);
     }
 );

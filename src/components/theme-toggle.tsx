@@ -1,16 +1,21 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
-import { LaptopIcon, MoonIcon, SunIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
-
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuPortal,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { LaptopIcon, MoonIcon, SunIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useSyncExternalStore } from 'react';
 
 const emptySubscribe = () => () => {};
 
@@ -63,5 +68,59 @@ export function ThemeToggle() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+    );
+}
+
+export function ThemeToggleSidebar() {
+    const useThemeProps = useTheme();
+
+    // https://tkdodo.eu/blog/avoiding-hydration-mismatches-with-use-sync-external-store
+    const themeValue = useSyncExternalStore(
+        emptySubscribe,
+        () => useThemeProps,
+        () => null
+    );
+
+    if (!themeValue) {
+        return (
+            <DropdownMenuSubTrigger>
+                <MoonIcon /> Toggle theme
+            </DropdownMenuSubTrigger>
+        );
+    }
+
+    const { theme, setTheme } = themeValue;
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    return (
+        <DropdownMenuSub>
+            <DropdownMenuSubTrigger className='gap-2'>
+                {(theme === 'light' || (theme === 'system' && !systemDark)) && (
+                    <SunIcon className='size-4' />
+                )}
+                {(theme === 'dark' || (theme === 'system' && systemDark)) && (
+                    <MoonIcon className='size-4' />
+                )}
+                <span>Toggle theme</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                    <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                        <DropdownMenuRadioItem className='gap-2' value='light'>
+                            <SunIcon className='size-4' />
+                            <span>Light</span>
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem className='gap-2' value='dark'>
+                            <MoonIcon className='size-4' />
+                            <span>Dark</span>
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem className='gap-2' value='system'>
+                            <LaptopIcon className='size-4' />
+                            <span>System</span>
+                        </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+        </DropdownMenuSub>
     );
 }

@@ -23,9 +23,8 @@
                 "name": "next"
             }
         ],
-        "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
+            "@/*": ["./src/*"],
             "@@/*": ["./*"]
         }
     },
@@ -35,8 +34,7 @@
         "**/*.ts",
         "**/*.tsx",
         "**/*.mdx",
-        ".next/types/**/*.ts",
-        "next.config.mjs"
+        ".next/types/**/*.ts"
     ],
     "exclude": ["node_modules"]
 }

@@ -1,14 +1,14 @@
 import 'server-only';
 
-import { Template as ConfirmationCode } from '@/emails/confirmation-code';
+import ConfirmationCode from '@/emails/confirmation-code';
 import { serverEnvs } from '@/env/server';
 import { Routes } from '@/lib/routes';
 import { lucia } from '@/services/auth';
 import { db } from '@/services/db';
 import { emailVerificationCodes } from '@/services/db/schema';
 import { hash, verify } from '@node-rs/argon2';
+import { render } from '@react-email/render';
 import { eq } from 'drizzle-orm';
-import { render } from 'jsx-email';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createTransport } from 'nodemailer';
@@ -19,7 +19,7 @@ import { cache } from 'react';
 import { Resend } from 'resend';
 
 export const getUser = cache(async () => {
-    const sessionId = cookies().get(lucia.sessionCookieName)?.value;
+    const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value;
     if (!sessionId) return null;
 
     const { user } = await lucia.validateSession(sessionId);
@@ -64,7 +64,7 @@ export async function sendVerificationCode(emailAddress: string, code: string) {
     }
 
     try {
-        const html = await render(ConfirmationCode({ validationCode: code }));
+        const html = await render(<ConfirmationCode validationCode={code} />);
 
         if (serverEnvs.EMAIL_PROVIDER === 'resend') {
             const resend = new Resend(serverEnvs.RESEND_API_KEY);

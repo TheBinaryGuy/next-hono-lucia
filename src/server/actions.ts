@@ -7,14 +7,17 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export async function logout() {
-    const sessionId = cookies().get(lucia.sessionCookieName)?.value;
+    const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value;
 
     if (!sessionId) {
         return redirect(Routes.home());
     }
 
     await lucia.invalidateSession(sessionId);
-    cookies().set(lucia.sessionCookieName, '', { expires: new Date(0), sameSite: 'strict' });
+    (await cookies()).set(lucia.sessionCookieName, '', {
+        expires: new Date(0),
+        sameSite: 'strict',
+    });
     revalidatePath('/');
     return redirect(Routes.home());
 }

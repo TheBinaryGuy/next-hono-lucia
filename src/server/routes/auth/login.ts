@@ -65,6 +65,6 @@ export const login = new OpenAPIHono<{ Variables: ContextVariables }>().openapi(
 
         revalidatePath(Routes.home());
 
-        return c.json({});
+        return c.body(null);
     }
 );

@@ -1,7 +1,5 @@
 # Hono x Lucia
 
----
-
 This is a Next.js template that uses Hono as the API framework and Lucia for authentication. This also uses hono's Zod to OpenAPI package to generate OpenAPI schema available at `/api/swagger.json` and the editor / playground at `/api/scalar`.
 
 Uses:
@@ -13,7 +11,7 @@ Uses:
 -   [Drizzle](https://orm.drizzle.team/) as the ORM
 -   [Postgres](https://www.postgresql.org/) as the database
 -   [Lucia](https://lucia-auth.com/) and [Oslo](https://oslo.js.org/) for auth
--   [JSX Email](https://jsx.email/) for the email templates
+-   [React Email](https://react.email/) for the email templates
 
 ## Getting Started (Development Environment)
 

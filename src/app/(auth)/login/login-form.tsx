@@ -19,18 +19,25 @@ import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export function LoginForm() {
+    const router = useRouter();
     const { mutate, isPending } = useMutation<unknown, Error, Login, unknown>({
         mutationKey: ['login'],
-        mutationFn: json =>
-            client.api.auth.login.$post({
+        mutationFn: async json => {
+            const response = await client.api.auth.login.$post({
                 json,
-            }),
+            });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+        },
         onSuccess: async () => {
-            window.location.assign(Routes.home());
+            router.push(Routes.dashboard());
         },
         onError: () => {
             toast.error('Login failed.');

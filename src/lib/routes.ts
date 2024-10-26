@@ -1,10 +1,10 @@
 // https://www.flightcontrol.dev/blog/fix-nextjs-routing-to-have-full-type-safety
-
 import queryString from 'query-string';
 import { z } from 'zod';
 
 export const Routes = {
     home: makeRoute(() => '/'),
+    dashboard: makeRoute(() => '/dashboard'),
 
     scalar: makeRoute(() => '/scalar'),
 
@@ -39,9 +39,7 @@ function makeRoute<Params extends z.ZodSchema, Search extends z.ZodSchema>(
         return [baseUrl, searchString ? `?${searchString}` : ''].join('');
     };
 
-    // set the type
     routeBuilder.params = undefined as z.output<Params>;
-    // set the runtime getter
     Object.defineProperty(routeBuilder, 'params', {
         get() {
             throw new Error(

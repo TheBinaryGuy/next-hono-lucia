@@ -54,7 +54,7 @@ export const sendRegistrationCode = new OpenAPIHono<{
         });
 
         if (existingUser && existingUser.emailVerified) {
-            return c.json({});
+            return c.body(null);
         }
 
         let id: string;
@@ -82,6 +82,6 @@ export const sendRegistrationCode = new OpenAPIHono<{
             });
         }
 
-        return c.json({});
+        return c.body(null);
     }
 );

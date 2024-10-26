@@ -44,12 +44,17 @@ export function VerificationForm({ email }: { email: string }) {
     const router = useRouter();
     const { mutate, isPending } = useMutation<unknown, Error, Verify>({
         mutationKey: ['user-verification'],
-        mutationFn: json =>
-            client.api.auth.register.verify.$post({
+        mutationFn: async json => {
+            const response = await client.api.auth.register.verify.$post({
                 json,
-            }),
+            });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+        },
         onSuccess: () => {
-            router.push(Routes.home());
+            router.push(Routes.dashboard());
         },
         onError: () => {
             toast.error('Registration failed. Please try again.');

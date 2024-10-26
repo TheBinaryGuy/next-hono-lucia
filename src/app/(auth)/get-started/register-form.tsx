@@ -29,9 +29,13 @@ export function RegisterForm() {
     const { mutate, isPending } = useMutation<unknown, Error, SendRegistrationCode, unknown>({
         mutationKey: ['register'],
         mutationFn: async input => {
-            await client.api.auth.register['send-registration-code'].$post({
+            const response = await client.api.auth.register['send-registration-code'].$post({
                 json: input,
             });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
 
             return { email: input.email };
         },
