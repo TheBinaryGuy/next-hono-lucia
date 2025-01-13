@@ -1,3 +1,4 @@
+import '@/env/client';
 import { serverEnvs } from '@/env/server';
 import type { NextConfig } from 'next';
 
