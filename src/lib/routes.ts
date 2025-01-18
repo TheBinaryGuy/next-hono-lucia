@@ -13,7 +13,7 @@ export const Routes = {
 
     login: makeRoute(() => '/login'),
 
-    getStarted: makeRoute(() => '/get-started'),
+    register: makeRoute(() => '/register'),
     verify: makeRoute(
         () => '/get-started/verify',
         z.object({}),
@@ -21,6 +21,8 @@ export const Routes = {
     ),
 
     secret: makeRoute(() => '/secret'),
+    forgotPassword: makeRoute(() => '/forgot-password'),
+    resetPassword: makeRoute(() => '/forgot-password/reset'),
 };
 
 type RouteBuilder<Params extends z.ZodSchema, Search extends z.ZodSchema> = {

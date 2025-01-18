@@ -19,7 +19,7 @@ export default async function Page() {
                         <Link href={Routes.login()}>Login</Link>
                     </Button>
                     <Button asChild className='w-28' variant='outline'>
-                        <Link href={Routes.getStarted()}>Get Started</Link>
+                        <Link href={Routes.register()}>Register</Link>
                     </Button>
                 </div>
             </div>

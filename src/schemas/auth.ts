@@ -24,3 +24,17 @@ export const loginSchema = z.object({
 });
 
 export type Login = z.infer<typeof loginSchema>;
+
+export const sendResetCodeSchema = z.object({
+    email: z.string().email(),
+});
+
+export type SendResetCode = z.infer<typeof sendResetCodeSchema>;
+
+export const resetPasswordSchema = z.object({
+    email: z.string().email(),
+    confirmationCode: z.string().length(8),
+    newPassword: z.string().min(8),
+});
+
+export type ResetPassword = z.infer<typeof resetPasswordSchema>;
