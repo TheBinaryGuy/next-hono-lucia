@@ -35,3 +35,4 @@ public/static
 .vercel
 
 certificates
+.env
