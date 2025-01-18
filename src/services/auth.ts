@@ -5,6 +5,7 @@ import { serverEnvs } from '@/env/server';
 import { db } from '@/services/db';
 import { sessions, users } from '@/services/db/schema';
 
+// @ts-expect-error db type has some weird conflict
 const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
 
 export const lucia = new Lucia(adapter, {

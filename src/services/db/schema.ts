@@ -14,7 +14,9 @@ export const users = pgTable(
     {
         id: varchar('id', {
             length: 255,
-        }).primaryKey(),
+        })
+            .primaryKey()
+            .$defaultFn(() => crypto.randomUUID()),
         email: varchar('email', {
             length: 255,
         }).notNull(),
@@ -24,6 +26,15 @@ export const users = pgTable(
         emailVerified: boolean('email_verified').default(false),
         agreedToTerms: boolean('agreed_to_terms').default(false),
         hashedPassword: varchar('hashed_password').default('').notNull(),
+        googleId: varchar('google_id', {
+            length: 255,
+        }),
+        name: varchar('name', {
+            length: 255,
+        }),
+        picture: varchar('picture', {
+            length: 255,
+        }),
     },
     table => {
         return {

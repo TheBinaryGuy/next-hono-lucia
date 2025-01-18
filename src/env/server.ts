@@ -22,6 +22,10 @@ export const serverEnvs = createEnv({
         EMAIL_FROM: z.string(),
 
         STANDALONE: z.coerce.number().default(0),
+
+        // Google OAuth
+        GOOGLE_CLIENT_ID: z.string(),
+        GOOGLE_CLIENT_SECRET: z.string(),
     },
     experimental__runtimeEnv: process.env,
     emptyStringAsUndefined: true,
