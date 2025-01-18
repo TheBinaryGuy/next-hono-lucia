@@ -15,7 +15,7 @@ export const Routes = {
 
     register: makeRoute(() => '/register'),
     verify: makeRoute(
-        () => '/get-started/verify',
+        () => '/register/verify',
         z.object({}),
         z.object({ email: z.string().email() })
     ),

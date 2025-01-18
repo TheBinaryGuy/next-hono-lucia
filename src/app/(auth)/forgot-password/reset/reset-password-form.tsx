@@ -10,7 +10,6 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import {
     InputOTP,
     InputOTPGroup,
@@ -20,7 +19,8 @@ import {
 import { PasswordInput } from '@/components/ui/password-input';
 import { Routes } from '@/lib/routes';
 import { cn } from '@/lib/utils';
-import { type ResetPassword, resetPasswordSchema } from '@/schemas/auth';
+import { z } from 'zod';
+import { resetPasswordSchema as mainResetPasswordSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
 import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,14 +29,30 @@ import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { useTimer } from '@/lib/hooks/useTimer';
+import { useSendResetCode } from '../forgot-password-form';
+
+const resetPasswordSchema = mainResetPasswordSchema
+    .extend({
+        confirmPassword: z.string(),
+    })
+    .refine(data => data.newPassword === data.confirmPassword, {
+        message: "Passwords don't match",
+        path: ['confirmPassword'],
+    });
+
+type ResetPassword = z.infer<typeof resetPasswordSchema>;
 
 export function ResetPasswordForm({ email }: { email: string }) {
+    const { seconds, isActive, startTimer } = useTimer();
+
     const form = useForm<ResetPassword>({
         resolver: zodResolver(resetPasswordSchema),
         defaultValues: {
             confirmationCode: '',
             email,
             newPassword: '',
+            confirmPassword: '',
         },
         criteriaMode: 'all',
     });
@@ -62,6 +78,16 @@ export function ResetPasswordForm({ email }: { email: string }) {
         },
     });
 
+    const { mutate: resendCode, isPending: isResending } = useSendResetCode({
+        onSuccess: () => {
+            startTimer();
+            toast.success('New code sent to your email');
+        },
+        onError: () => {
+            toast.error('Failed to resend code');
+        },
+    });
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(values => mutate(values))} className='space-y-4'>
@@ -71,11 +97,25 @@ export function ResetPasswordForm({ email }: { email: string }) {
                     render={({ field }) => (
                         <FormItem>
                             <div className='space-y-2 leading-none'>
-                                <div className='space-y-1'>
-                                    <FormLabel>Reset Code</FormLabel>
-                                    <FormDescription>
-                                        Check your email for the code.
-                                    </FormDescription>
+                                <div className='flex items-center justify-between'>
+                                    <div className='space-y-1'>
+                                        <FormLabel>Reset Code</FormLabel>
+                                        <FormDescription>
+                                            Check your email for the code.
+                                        </FormDescription>
+                                    </div>
+                                    <Button
+                                        type='button'
+                                        variant='link'
+                                        size='sm'
+                                        onClick={() =>
+                                            resendCode({
+                                                email,
+                                            })
+                                        }
+                                        disabled={isResending || isActive}>
+                                        {isActive ? `Resend in ${seconds}s` : 'Resend Code'}
+                                    </Button>
                                 </div>
                                 <FormControl>
                                     <InputOTP maxLength={8} {...field}>
@@ -93,21 +133,6 @@ export function ResetPasswordForm({ email }: { email: string }) {
                                             <InputOTPSlot index={7} />
                                         </InputOTPGroup>
                                     </InputOTP>
-                                </FormControl>
-                                <FormMessage />
-                            </div>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name='email'
-                    render={({ field }) => (
-                        <FormItem>
-                            <div className='space-y-2 leading-none'>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input readOnly {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </div>
@@ -141,6 +166,24 @@ export function ResetPasswordForm({ email }: { email: string }) {
                                         ))
                                     }
                                 />
+                            </div>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name='confirmPassword'
+                    render={({ field }) => (
+                        <FormItem>
+                            <div className='space-y-2 leading-none'>
+                                <div className='space-y-1'>
+                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormDescription>Re-enter your new password.</FormDescription>
+                                </div>
+                                <FormControl>
+                                    <PasswordInput {...field} />
+                                </FormControl>
+                                <FormMessage />
                             </div>
                         </FormItem>
                     )}

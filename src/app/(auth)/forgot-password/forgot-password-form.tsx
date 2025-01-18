@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils';
 import { type SendResetCode, sendResetCodeSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -24,37 +24,20 @@ import { toast } from 'sonner';
 
 export function ForgotPasswordForm() {
     const { push } = useRouter();
-    const { mutate, isPending } = useMutation<unknown, Error, SendResetCode>({
-        mutationKey: ['forgot-password'],
-        mutationFn: async input => {
-            const response = await client.api.auth['forgot-password']['send-reset-code'].$post({
-                json: input,
-            });
-
-            if (!response.ok) {
-                throw new Error(response.statusText);
-            }
-
-            return { email: input.email };
-        },
-        onSuccess: (_, { email }) => {
-            push(
-                Routes.resetPassword(undefined, {
-                    search: {
-                        email,
-                    },
-                })
-            );
-        },
-        onError: () => {
-            toast.error('Failed to send reset code');
-        },
-    });
 
     const form = useForm<SendResetCode>({
         resolver: zodResolver(sendResetCodeSchema),
         defaultValues: {
             email: '',
+        },
+    });
+
+    const { mutate, isPending } = useSendResetCode({
+        onSuccess: (_, { email }) => {
+            push(Routes.resetPassword(undefined, { search: { email } }));
+        },
+        onError: () => {
+            toast.error('Failed to send reset code');
         },
     });
 
@@ -89,4 +72,22 @@ export function ForgotPasswordForm() {
             </form>
         </Form>
     );
+}
+
+export function useSendResetCode(reset: UseMutationOptions<unknown, Error, SendResetCode>) {
+    return useMutation<unknown, Error, SendResetCode>({
+        mutationKey: ['forgot-password'],
+        mutationFn: async input => {
+            const response = await client.api.auth['forgot-password']['send-reset-code'].$post({
+                json: input,
+            });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            return { email: input.email };
+        },
+        ...reset,
+    });
 }
