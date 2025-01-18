@@ -13,12 +13,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Routes } from '@/lib/routes';
-import { cn } from '@/lib/utils';
 import { type SendRegistrationCode, sendRegistrationCodeSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -85,7 +83,11 @@ export function RegisterForm() {
                     render={({ field }) => (
                         <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
                             <FormControl>
-                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                    required
+                                />
                             </FormControl>
                             <div className='space-y-1 leading-none'>
                                 <FormLabel>By checking this box: </FormLabel>
@@ -107,13 +109,7 @@ export function RegisterForm() {
                         </FormItem>
                     )}
                 />
-                <Button type='submit' disabled={isPending}>
-                    <Loader2
-                        className={cn('mr-2 size-4 animate-spin', {
-                            [`inline`]: isPending,
-                            [`hidden`]: !isPending,
-                        })}
-                    />
+                <Button type='submit' isPending={isPending}>
                     Continue
                 </Button>
             </form>

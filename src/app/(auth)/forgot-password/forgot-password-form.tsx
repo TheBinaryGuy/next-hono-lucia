@@ -12,12 +12,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Routes } from '@/lib/routes';
-import { cn } from '@/lib/utils';
 import { type SendResetCode, sendResetCodeSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -60,13 +58,7 @@ export function ForgotPasswordForm() {
                         </FormItem>
                     )}
                 />
-                <Button type='submit' disabled={isPending}>
-                    <Loader2
-                        className={cn('mr-2 size-4 animate-spin', {
-                            [`inline`]: isPending,
-                            [`hidden`]: !isPending,
-                        })}
-                    />
+                <Button type='submit' isPending={isPending}>
                     Send Reset Code
                 </Button>
             </form>

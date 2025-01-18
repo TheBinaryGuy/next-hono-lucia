@@ -1,8 +1,8 @@
 import React from 'react';
 
-export function useTimer(initialSeconds: number = 60) {
-    const [seconds, setSeconds] = React.useState(0);
-    const [isActive, setIsActive] = React.useState(false);
+export function useTimer(initialSeconds = 60) {
+    const [seconds, setSeconds] = React.useState(60);
+    const [isActive, setIsActive] = React.useState(true);
 
     React.useEffect(() => {
         let interval: NodeJS.Timeout;

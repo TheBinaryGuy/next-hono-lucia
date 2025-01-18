@@ -18,14 +18,12 @@ import {
 } from '@/components/ui/input-otp';
 import { PasswordInput } from '@/components/ui/password-input';
 import { Routes } from '@/lib/routes';
-import { cn } from '@/lib/utils';
 import { z } from 'zod';
 import { resetPasswordSchema as mainResetPasswordSchema } from '@/schemas/auth';
 import { client } from '@/server/client';
 import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -188,13 +186,7 @@ export function ResetPasswordForm({ email }: { email: string }) {
                         </FormItem>
                     )}
                 />
-                <Button type='submit' disabled={isPending}>
-                    <Loader2
-                        className={cn('mr-2 size-4 animate-spin', {
-                            [`inline`]: isPending,
-                            [`hidden`]: !isPending,
-                        })}
-                    />
+                <Button type='submit' isPending={isPending}>
                     Reset Password
                 </Button>
             </form>

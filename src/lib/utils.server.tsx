@@ -101,13 +101,10 @@ export async function generateEmailVerificationCode(userId: string): Promise<str
         .where(eq(emailVerificationCodes.userId, userId));
 
     if (existingCode.length > 0 && isWithinExpirationDate(existingCode[0]!.expiresAt)) {
-        return existingCode[0]!.code;
+        await db.delete(emailVerificationCodes).where(eq(emailVerificationCodes.userId, userId));
     }
 
     const code = generateRandomString(8, alphabet('0-9'));
-    if (existingCode.length > 0) {
-        await db.delete(emailVerificationCodes).where(eq(emailVerificationCodes.userId, userId));
-    }
 
     await db.insert(emailVerificationCodes).values({
         userId,
