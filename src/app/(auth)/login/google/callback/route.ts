@@ -50,11 +50,12 @@ export async function GET(request: Request): Promise<Response> {
     if (existingUser !== null) {
         const sessionToken = generateSessionToken();
         const session = await createSession(sessionToken, existingUser.id);
+        console.log('new session', session);
         setSessionTokenCookie(sessionToken, session.expiresAt);
         return new Response(null, {
             status: 302,
             headers: {
-                Location: '/',
+                Location: '/dashboard',
             },
         });
     }
@@ -66,7 +67,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
         status: 302,
         headers: {
-            Location: '/',
+            Location: '/dashboard',
         },
     });
 }

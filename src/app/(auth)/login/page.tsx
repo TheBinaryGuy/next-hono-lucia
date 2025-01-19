@@ -8,6 +8,7 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Routes } from '@/lib/routes';
+import { getUser } from '@/lib/utils.server';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -16,7 +17,9 @@ export const metadata: Metadata = {
     description: 'Welcome back!',
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+    const user = await getUser();
+    console.log({ user });
     return (
         <div className='flex h-full items-center'>
             <Card className='mx-auto w-[32rem] max-w-lg'>

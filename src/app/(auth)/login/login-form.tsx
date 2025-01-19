@@ -1,5 +1,6 @@
 'use client';
 
+import { GoogleSignIn } from '@/components/google-signin';
 import { Button } from '@/components/ui/button';
 import {
     Form,
@@ -105,9 +106,20 @@ export function LoginForm() {
                         </FormItem>
                     )}
                 />
-                <Button type='submit' isPending={isPending}>
+                <Button type='submit' isPending={isPending} className="w-full">
                     Login
                 </Button>
+                <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-background px-2 text-muted-foreground">
+                            Or
+                        </span>
+                    </div>
+                </div>
+                <GoogleSignIn />
             </form>
         </Form>
     );

@@ -6,6 +6,7 @@ import { cache } from 'react';
 
 import { sessions } from '@/services/db/schema';
 import { eq, type InferInsertModel } from 'drizzle-orm';
+import { lucia } from '@/services/auth';
 
 export async function validateSessionToken(token: string) {
     const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
@@ -38,7 +39,7 @@ export async function validateSessionToken(token: string) {
 }
 
 export const getCurrentSession = cache(async () => {
-    const token = (await cookies()).get('session')?.value ?? null;
+    const token = (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
     if (token === null) {
         return { session: null, user: null };
     }
@@ -55,7 +56,7 @@ export async function invalidateUserSessions(userId: string): Promise<void> {
 }
 
 export async function setSessionTokenCookie(token: string, expiresAt: Date): Promise<void> {
-    (await cookies()).set('session', token, {
+    (await cookies()).set(lucia.sessionCookieName, token, {
         httpOnly: true,
         path: '/',
         secure: process.env.NODE_ENV === 'production',
@@ -65,7 +66,7 @@ export async function setSessionTokenCookie(token: string, expiresAt: Date): Pro
 }
 
 export async function deleteSessionTokenCookie(): Promise<void> {
-    (await cookies()).set('session', '', {
+    (await cookies()).set(lucia.sessionCookieName, '', {
         httpOnly: true,
         path: '/',
         secure: process.env.NODE_ENV === 'production',
