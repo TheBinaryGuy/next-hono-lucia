@@ -20,9 +20,7 @@ import { Resend } from 'resend';
 
 export const getUser = cache(async () => {
     const sessionId = (await cookies()).get(lucia.sessionCookieName)?.value;
-    console.log('sessionId', sessionId);
     if (!sessionId) return null;
-
     const { user } = await lucia.validateSession(sessionId);
     return user;
 });
@@ -32,7 +30,6 @@ export async function ensureAuthenticated() {
     if (!user) {
         throw redirect(Routes.login());
     }
-
     return user;
 }
 
