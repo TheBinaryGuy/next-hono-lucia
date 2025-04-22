@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { apiReference } from '@scalar/hono-api-reference';
+import { Scalar } from '@scalar/hono-api-reference';
 import { getCookie, setCookie } from 'hono/cookie';
 
 import { authApp } from '@/server/routes/auth';
@@ -51,10 +51,8 @@ app.doc31('/api/swagger.json', {
 
 app.get(
     '/api/scalar',
-    apiReference({
-        spec: {
-            url: '/api/swagger.json',
-        },
+    Scalar({
+        url: '/api/swagger.json',
     })
 );
 
